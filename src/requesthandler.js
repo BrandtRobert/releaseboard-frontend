@@ -28,3 +28,7 @@ export function getReleases (callback) {
     console.log(e)
   })
 }
+
+export function postChanges (data, callback) {
+  _server.post('releases')
+}

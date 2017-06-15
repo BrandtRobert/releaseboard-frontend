@@ -1,18 +1,18 @@
 <template>
   <v-app>
     <v-toolbar>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-toolbar-title v-text="title" class="white--text"></v-toolbar-title>
     </v-toolbar>
     <main>
       <v-container fluid>
         <v-layout column>
           <v-flex xs12>
-            <data-table></data-table>
+            <data-table :headers="headers" :items="items"></data-table>
           </v-flex>
         </v-layout>
         <v-layout row mt-2>
-          <v-flex xs12>
-            <v-card primary><p>Hello</p></v-card>
+          <v-flex xs12 text-xs-center>
+            <v-btn primary light @click="updateTable">Save Changes</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -26,22 +26,33 @@
 
 <script>
   import DataTable from './DataTable.vue'
+  import * as requestHandler from './requesthandler.js'
 
   export default {
     name: app,
-    components: { DataTable },
-    data () {
+    components: {
+      DataTable
+    },
+    data() {
       return {
-        clipped: false,
-        drawer: true,
         fixed: false,
-        items: [
-          { icon: 'bubble_chart', title: 'Inspire' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Envysion Engineering Team -- Releases and Versioning'
+        title: 'Envysion Engineering Team -- Releases and Versioning',
+        headers: [],
+        items: []
+      }
+    },
+    mounted() {
+      this.getTableData()
+    },
+    methods: {
+      getTableData () {
+        requestHandler.getReleases((headers, items) => {
+          this.headers = headers
+          this.items = items
+        })
+      },
+      updateTable () {
+        
       }
     }
   }

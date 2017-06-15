@@ -36,28 +36,10 @@
 
 <script>
 
-import * as requestHandler from './requesthandler.js'
-
 export default {
-  data () {
-      return {
-        headers: [],
-        items: []
-      }
-  },
-  mounted () {
-    this.getTableData();
-  },
-  methods: {
-    getTableData () {
-      requestHandler.getReleases((headers, items) => {
-        this.headers = headers
-        this.items = items
-      })
-    },
-  addNewRelease(){}
-  }
+  props: ['headers', 'items']
 }
+
 </script>
 
 <style>
