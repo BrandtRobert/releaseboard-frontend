@@ -35,32 +35,27 @@
 </template>
 
 <script>
+
+import * as requestHandler from './requesthandler.js'
+
 export default {
   data () {
       return {
-        headers: [
-            { text: 'Package', value: 'package', left: true },
-            { text: 'Product Release', value: 'release', sortable: false, left: true },
-            { text: 'Version', value: 'version', sortable: false, left:true},
-            { text: 'Merged', value: 'merged', sortable: false, left:true}
-        ],
-        items: [
-          {
-            value: false,
-            package: 'Service',
-            release: '406',
-            version: '5.28.1',
-            merged: false
-          },
-          {
-            value: false,
-            package: 'Video Web',
-            release: '406',
-            version: '4.28.0',
-            merged: false
-          }
-        ]
+        headers: [],
+        items: []
       }
+  },
+  mounted () {
+    this.getTableData();
+  },
+  methods: {
+    getTableData () {
+      requestHandler.getReleases((headers, items) => {
+        this.headers = headers
+        this.items = items
+      })
+    },
+  addNewRelease(){}
   }
 }
 </script>

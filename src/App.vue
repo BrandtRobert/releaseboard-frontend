@@ -5,27 +5,19 @@
     </v-toolbar>
     <main>
       <v-container fluid>
-        <v-layout column align-center>
-          <data-table></data-table>
+        <v-layout column>
+          <v-flex xs12>
+            <data-table></data-table>
+          </v-flex>
+        </v-layout>
+        <v-layout row mt-2>
+          <v-flex xs12>
+            <v-card primary><p>Hello</p></v-card>
+          </v-flex>
         </v-layout>
       </v-container>
+
     </main>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-    >
-      <v-list>
-        <v-list-item>
-          <v-list-tile @click.native="right = !right">
-            <v-list-tile-action>
-              <v-icon light>compare_arrows</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-          </v-list-tile>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <v-footer :fixed="fixed">
       <span>&copy; 2017</span>
     </v-footer>
