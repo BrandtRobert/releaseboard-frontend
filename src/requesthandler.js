@@ -30,5 +30,14 @@ export function getReleases (callback) {
 }
 
 export function postChanges (data, callback) {
-  _server.post('releases')
+  let promises = []
+  data.map((release) => {
+    let url = '/releases/' + release._id
+    // Remove the id and _v from the object so the mongo db doesn't get fazed
+    delete release._id
+    delete release.__v
+    let request = _server.put(url, release)
+    promises.push(request)
+  })
+  axios.all(promises).then(callback)
 }

@@ -12,7 +12,12 @@
         </v-layout>
         <v-layout row mt-2>
           <v-flex xs12 text-xs-center>
-            <v-btn primary light @click="updateTable">Save Changes</v-btn>
+            <v-btn primary light v-on:click.native="updateTable">Save Changes</v-btn>
+          </v-flex>
+        </v-layout>
+        <v-layout row mt-2>
+          <v-flex xs12 text-xs-center>
+            <v-alert success dismissible v-model="success">Changes Saved!</v-alert>
           </v-flex>
         </v-layout>
       </v-container>
@@ -38,7 +43,8 @@
         fixed: false,
         title: 'Envysion Engineering Team -- Releases and Versioning',
         headers: [],
-        items: []
+        items: [],
+        success: false      
       }
     },
     mounted() {
@@ -52,7 +58,10 @@
         })
       },
       updateTable () {
-        
+        requestHandler.postChanges(this.items, (err) => { 
+            this.getTableData()
+            this.success = true
+        })
       }
     }
   }
