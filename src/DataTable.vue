@@ -2,7 +2,6 @@
   <v-data-table
     v-bind:headers="headers"
     v-bind:items="items"
-    hide-actions
     class="elevation-1"
   >
   <template slot="headers" scope="props">
@@ -36,32 +35,7 @@
 
 <script>
 export default {
-  data () {
-      return {
-        headers: [
-            { text: 'Package', value: 'package', left: true },
-            { text: 'Product Release', value: 'release', sortable: false, left: true },
-            { text: 'Version', value: 'version', sortable: false, left:true},
-            { text: 'Merged', value: 'merged', sortable: false, left:true}
-        ],
-        items: [
-          {
-            value: false,
-            package: 'Service',
-            release: '406',
-            version: '5.28.1',
-            merged: false
-          },
-          {
-            value: false,
-            package: 'Video Web',
-            release: '406',
-            version: '4.28.0',
-            merged: false
-          }
-        ]
-      }
-  }
+  props: ['headers', 'items']
 }
 </script>
 
