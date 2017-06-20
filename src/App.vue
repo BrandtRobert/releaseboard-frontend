@@ -14,7 +14,7 @@
           <v-flex xs12 text-xs-center>
             <v-btn success light v-on:click.native="updateTable">Save Changes</v-btn>
             <v-btn primary light v-on:click.native.stop="showReleaseModal = true">Add New Release</v-btn>
-            <v-btn class="red" light v-on:click.native="deleteReleases">Delete Selected</v-btn>
+            <v-btn class="red" light v-on:click.native="showDeleteModal = true">Delete Releases</v-btn>
           </v-flex>
         </v-layout>
         <v-layout row mt-2>
@@ -24,6 +24,8 @@
         </v-layout>
         <new-release-dialog :showDialog="showReleaseModal" :submitRelease="addNewRelease"
           :closeDialog="closeReleaseModal"></new-release-dialog>
+        <delete-release-dialog :showDialog="showDeleteModal" :items="items" 
+          :close="closeDeleteModal" :delete="deleteSelected"></delete-release-dialog>
       </v-container>
 
     </main>
@@ -36,13 +38,15 @@
 <script>
   import DataTable from './DataTable.vue'
   import NewReleaseDialog from './NewReleaseDialog.vue'
+  import DeleteReleaseDialog from './DeleteReleaseDialog.vue'
   import * as requestHandler from './requesthandler.js'
 
   export default {
     name: app,
     components: {
       DataTable,
-      NewReleaseDialog
+      NewReleaseDialog,
+      DeleteReleaseDialog
     },
     data () {
       return {
@@ -52,8 +56,7 @@
         items: [],
         success: false,
         showReleaseModal: false,
-        confirmDeleteModal: false,
-        selected: []
+        showDeleteModal: false,
       }
     },
     mounted() {
@@ -88,8 +91,15 @@
       closeReleaseModal () {
         this.showReleaseModal = false
       },
+      closeDeleteModal () {
+        this.showDeleteModal = false
+      },
       deleteSelected (items) {
-        console.log(JSON.stringify(items))
+        requestHandler.deleteSelectedReleases(items, () => {
+          this.getTableData()
+          this.showDeleteModal = false
+          this.success = true 
+        })
       }
     }
   }

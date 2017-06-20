@@ -21,7 +21,6 @@ export function getReleases (callback) {
         left: true
       })
     })
-    headers.unshift({text: 'Selected', value: '', left: true})
     // Use the callback to set headers and items
     callback(headers, data)
   }).catch(e => {
@@ -45,4 +44,14 @@ export function postChanges (data, callback) {
 
 export function addNewRelease (data, callback) {
   _server.post('/releases', data).then(callback)
+}
+
+export function deleteSelectedReleases (data, callback) {
+  let promises = []
+  data.map((release) => {
+    let url = '/releases/' + release._id
+    let request = _server.delete(url, release)
+    promises.push(request)
+  })
+  axios.all(promises).then(callback)
 }

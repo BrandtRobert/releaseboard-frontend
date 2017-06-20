@@ -2,9 +2,6 @@
   <v-data-table
     v-bind:headers="headers"
     v-bind:items="items"
-    v-model="selected"
-    select-key="package"
-    hide-actions
     class="elevation-1"
   >
   <template slot="headers" scope="props">
@@ -13,10 +10,6 @@
     </span>
   </template>
   <template slot="items" scope="props">
-    <td>
-      <v-checkbox error hide-details v-model="props.selected">
-      </v-checkbox>
-    </td>
     <td>
       <v-text-field :value="props.item.package" v-model="props.item.package">
       </v-text-field>
@@ -42,18 +35,7 @@
 
 <script>
 export default {
-  props: ['headers', 'items', 'removeSelected'],
-  data () {
-    return {
-      selected: []
-    }
-  },
-  methods: {
-    deleteSelections: function () {
-      console.log('Calling local remove')
-      this.removeSelected(selected)
-    }
-  }
+  props: ['headers', 'items']
 }
 </script>
 

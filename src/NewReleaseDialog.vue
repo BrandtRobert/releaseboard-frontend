@@ -1,6 +1,6 @@
 <template>
 	<v-layout row justify-center>
-		<v-dialog v-model="showDialog" persistent>
+		<v-dialog v-model="showDialog" persistent width="800">
 			<v-card>
 				<v-card-row>
 					<v-card-title>Add New Release</v-card-title>
